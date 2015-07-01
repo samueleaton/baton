@@ -1,5 +1,9 @@
 function baton(_init){
 	var b = {
+		run:function(_input){
+			b.__utils__.i = -1;
+			return b.yield((_input!==undefined)?_input:null)
+		},
 		then: function(_callback){
 			if(typeof _callback === "function") b.__utils__.queue.push(_callback);
 			return b;
