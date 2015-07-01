@@ -2,9 +2,9 @@
 Like generators, but easier.   
 [![GitHub version](https://badge.fury.io/gh/samueleaton%2Fbaton.svg)](http://badge.fury.io/gh/samueleaton%2Fbaton) <img src="https://img.shields.io/badge/license-MIT-blue.svg">
 
-<br>
+Baton allows you to create a chain of functions, where the function chain will only progress if the control is yielded to the next function.
 
-Baton allows you to create a chain of functions, where the chain will be paused until the control is yielded to the next function.
+*Note:* In the documentation, the word `next` is used tp yield control to the next function, but you can use whatever you like. It is also refered to as "*passing the baton*"
 
 ```javascript
 baton(function(next){
