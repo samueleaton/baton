@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>baton Demo</title>
+</head>
+
+<body>
+
+<script type="text/javascript" src="baton.min.js"></script>
+
+<script>
+
+
+function wait(time, _callback){
+	console.log("pause for "+(time/1000)+" second");
+	setTimeout(function(){
+		console.log("(done waiting)");
+		_callback();
+	}, time);
+}
+
+
+
+
+
+var race = baton(function(next){
+	
+	console.log("beginning...")
+	next();
+	
+}).then(function(next){
+	
+	wait(1500, function(){
+		// this waiting could represent reading a file, making an ajax call, etc.
+		next("sam");
+	});
+
+}).then(function(next, person){
+	
+	console.log("Hello, I'm "+person+".")
+	next();
+	
+}).then(function(next){
+	
+	console.log("All done!!");
+
+});
+
+// console.log(
+// 	baton(function(next, person){
+// 		return next("person!");
+// 	}).yield()
+// );
+
+
+race.yield()
+
+</script>
+
+</body>
+
+</html>
+
+
+
+
+
+
+
+
