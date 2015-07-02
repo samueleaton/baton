@@ -4,8 +4,6 @@ Like generators, but easier.
 
 Baton allows you to create a chain of functions, where the function chain will only progress if the control is yielded to the next function.
 
-*Note:* In the documentation, the word `next` is used tp yield control to the next function, but you can use whatever you like. It is also refered to as "*passing the baton*"
-
 ```javascript
 baton(function(next){
   console.log("hi.");
@@ -17,9 +15,17 @@ baton(function(next){
 .run();
 ```
 
+*Note:* In the documentation, the word `next` is used to yield control to the next function, but you can use whatever word you like. This yielding of control from one function to the next is also refered to as "*passing the baton*".
+
+
+**`baton()`** - takes the first function and creates a function chain 
+**`then()`** - takes another function and adds it to the function chain  
+**`run()`** - starts running the chain of functions from the beginning (the beginning being the function that was defined in the `baton` method)
+
+
 ###Passing the Baton (yielding control)
 
-The baton (control) will only pass to the next function (specified using the `then` method) if you manually yield control.
+The control will only pass to the next function if you manually yield control.
 
 In this example, the cat will *never* eat the mouse:
 ```javascript
@@ -32,7 +38,7 @@ baton(function(next){
 .run();
 ```
 
-You need to run the `next` function to continue to pass the baton the next function. Passing it in as the first parameter **only makes it available**, you still need to call it.
+You need to run the `next` function to continue to pass the baton to the next function. Passing it in as the first parameter **only makes it available**—you still need to call it.
 
 ```javascript
 baton(function(next){
@@ -47,7 +53,7 @@ baton(function(next){
 
 ###Conditional Progression
 
-One of the fundamental features of baton is being able to call next when you want to. You may find that you only want to proceed with the baton series if a certain criteria is met. 
+One of the fundamental features of baton is being able to call `next` when you want to. You may find that you only want to proceed with the baton series if a certain criteria is met. 
 
 Let's say that in this next example, we want to do the following:
 - If a number is greater than 10, pass it to the next function.
