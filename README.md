@@ -89,39 +89,43 @@ One of the the powerful features of baton is that it makes it easy to set up a c
 
 #####*How?*
 *Step 1*  
-Pass the data into the next function `next(someData)`
+Pass the any number of arguments into the next function `next(someData, moreData)`
 
 *Step 2*  
-Add a second parameter to the incoming parameters `function(next, data)`
+Add as many parameters as you want to the incoming parameters `function(next, firstData, secondData)`.  Note that `next` is always the first argument, all other arguments will follow.
 
 **Example**
 ```javascript
-baton(function(next, data){
+baton(function(next, letter){
   data += "a";
-  console.log(data); // Sa
-  next(data);
+  console.log(letter); // Sa
+  next(letter);
 })
-.then(function(next, data){
-  data += "m";
-  console.log(data); // Sam
+.then(function(next, letters){
+  letters += "m";
+  console.log(letters); // Sam
+  next(letters, "Eaton");
 })
-.then(function(next, data){
-  data += "uel";
-  console.log(data); // Samuel
+.then(function(next, firstName, lastName){
+  firstName += "uel";
+  console.log(firstName + " " + lastName); // Samuel Eaton
 })
 .run("S");
 ```
 
 
 ###Returning a Result
+*coming soon*
 
 ###Re-usable Baton
+*coming soon*
 
 ###Recursive Calculations
+*coming soon*
 
 
 <hr>
 
 <br>
 
-*still in early development - examples soon*
+*still in early development*
