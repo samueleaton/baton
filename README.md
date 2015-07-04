@@ -18,9 +18,9 @@ baton(function(next){
 *Note:* In the documentation, the word `next` is used to yield control to the next function, but you can use whatever word you like. This yielding of control from one function to the next is also refered to as "*passing the baton*".
 
 
-**`baton()`** - takes the first function and creates a function chain 
-**`then()`** - takes another function and adds it to the function chain  
-**`run()`** - starts running the chain of functions from the beginning (the beginning being the function that was defined in the `baton` method)
+**`baton()`** - takes the first function and creates a function series (chain)  
+**`then()`** - takes another function and adds it to the function series  
+**`run()`** - starts running the series of functions from the beginning (the beginning being the function that was defined in the `baton` method)
 
 
 ###Passing the Baton (yielding control)
