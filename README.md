@@ -5,22 +5,20 @@ Like generators, but easier.
 Baton allows you to create a chain of functions, where the function chain will only progress if the control is yielded to the next function.
 
 ```javascript
-baton(function(next){
+baton(function(){
   console.log("hi.");
-  next();
+  this.next();
 })
 .then(function(){
   console.log("hello.");
-})
-.run();
+})();
 ```
 
-*Note:* In the documentation, the word `next` is used to yield control to the next function, but you can use whatever word you like. This yielding of control from one function to the next is also refered to as "*passing the baton*".
+*Note:* `next` is used to yield control to the next function. This yielding of control from one function to the next is also referred to as "*passing the baton*".
 
 
 **`baton()`** - takes the first function and creates a function series (chain)  
 **`then()`** - takes another function and adds it to the function series  
-**`run()`** - starts running the series of functions from the beginning (the beginning being the function that was defined in the `baton` method)
 
 
 ###Passing the Baton (yielding control)
@@ -29,26 +27,24 @@ The control will only pass to the next function if you manually yield control.
 
 In this example, the cat will *never* eat the mouse:
 ```javascript
-baton(function(next){
+baton(function(){
 	console.log("Cat sees the mouse.");
 })
-.then(function(next){
+.then(function(){
   console.log("Cat eats the mouse.")
-})
-.run();
+})();
 ```
 
-You need to run the `next` function to continue to pass the baton to the next function. Passing it in as the first parameter **only makes it available**—you still need to call it.
+You need to run the `next` method to continue to pass the baton to the next function.  
 
 ```javascript
-baton(function(next){
+baton(function(){
 	console.log("Cat sees the mouse.");
-	next(); // control is passed to next block
+	this.next(); // control is passed to next block
 })
-.then(function(next){
+.then(function(){
   console.log("Cat eats the mouse.")
-})
-.run();
+})();
 ```
 
 ###Conditional Progression
@@ -62,23 +58,22 @@ Let's say that in this next example, we want to do the following:
 
 *Example*  
 ```javascript
-var numberChecker = baton(function(next, number){
+var numberChecker = baton(function(number){
 	if(number > 10) {
-		next(number);
+		this.next(number);
 	}
 	else if(number < 10 && number > 0) {
-		next(number *= 2);
+		this.next(number *= 2);
 	}
 	else { 
 		console.log("Negative number is negative."); 
 	}
 })
-
-.then(function(next, number){
+.then(function(number){
   console.log("You gave a(n) " + number);
 })
 
-.run(11); // You gave a(n) 11
+numberChecker(11); // You gave a(n) 11
 ```
 
 
@@ -92,25 +87,26 @@ One of the the powerful features of baton is that it makes it easy to set up a c
 Pass the any number of arguments into the next function `next(someData, moreData)`
 
 *Step 2*  
-Add as many parameters as you want to the incoming parameters `function(next, firstData, secondData)`.  Note that `next` is always the first argument, all other arguments will follow.
+Add as many parameters as you want to the incoming parameters `function(firstData, secondData)`. 
 
 **Example**
 ```javascript
-baton(function(next, letter){
+var myBaton = baton(function(letter){
   data += "a";
   console.log(letter); // Sa
-  next(letter);
+  this.next(letter);
 })
-.then(function(next, letters){
+.then(function(letters){
   letters += "m";
   console.log(letters); // Sam
-  next(letters, "Eaton");
+  this.next(letters, "Eaton");
 })
-.then(function(next, firstName, lastName){
+.then(function(firstName, lastName){
   firstName += "uel";
   console.log(firstName + " " + lastName); // Samuel Eaton
-})
-.run("S");
+});
+
+myBaton("S");
 ```
 
 
